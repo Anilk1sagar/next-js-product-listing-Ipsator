@@ -1,16 +1,19 @@
+"use client"
+
 import { Product } from '@/types/product';
 import { debounce } from '@/utils/helpers';
 import { Search } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 
 type Props = {
-	allProducts: Product[];
+	products: Product[];
 	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
 };
 
 const SearchProducts = (props: Props) => {
-	const { allProducts, setProducts } = props;
-	// const [searchTerm, setSearchTerm] = useState<string | null>('');
+	const { products, setProducts } = props;
+
+	const [allProducts] = useState(products);
 
 	const handleInputChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -19,7 +22,7 @@ const SearchProducts = (props: Props) => {
 		if (!value) {
 			setProducts([...allProducts]);
 		} else {
-			const updatedProducts = allProducts.filter((product) =>
+			const updatedProducts = products.filter((product) =>
 				product.title.toLowerCase().includes(value.toLowerCase())
 			);
 			setProducts(updatedProducts);
@@ -38,7 +41,7 @@ const SearchProducts = (props: Props) => {
 	// };
 
 	return (
-		<div className="flex items-center lg:w-full  lg:max-w-[500px]">
+		<div className="flex items-center lg:w-full lg:max-w-[700px]">
 			<div className="relative w-full">
 				<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 					<Search className="text-gray-500 w-4" />
@@ -63,4 +66,4 @@ const SearchProducts = (props: Props) => {
 	);
 };
 
-export default SearchProducts;
+export default memo(SearchProducts);

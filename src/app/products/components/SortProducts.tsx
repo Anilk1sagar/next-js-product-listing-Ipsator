@@ -1,5 +1,5 @@
 import { Product } from '@/types/product';
-import React from 'react';
+import React, { memo } from 'react';
 
 type Props = {
 	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
@@ -23,12 +23,12 @@ const SortProducts = (props: Props) => {
 		const value = e.target.value;
 
 		setProducts((prevState) => {
-			return !prevState ? prevState : sortWithPrice(prevState, value);
+			return prevState ? sortWithPrice(prevState, value) : prevState;
 		});
 	};
 
 	return (
-		<div className="flex items-center">
+		<div className="flex items-center min-w-[220px]">
 			<label htmlFor="products" className="block text-sm font-medium text-gray-900 w-[90px]">
 				Sort by:
 			</label>
@@ -47,4 +47,4 @@ const SortProducts = (props: Props) => {
 	);
 };
 
-export default SortProducts;
+export default memo(SortProducts);

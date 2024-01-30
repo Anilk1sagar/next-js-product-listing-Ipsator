@@ -1,7 +1,7 @@
 import { Product } from '@/types/product';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { memo } from 'react';
 
 type Props = {
 	product: Product;
@@ -27,7 +27,7 @@ const ProductCard = (props: Props) => {
 					style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
 				>
 					<span className="flex gap-1 items-center">
-						{product.rating.rate} <Star className="text-green-600 w-3" />{' '}
+						{product.rating.rate} <Star className="text-green-600 fill-green-600 w-3" />{' '}
 					</span>
 					<span className="flex gap-1 items-center">| {product.rating.count}</span>
 				</div>
@@ -35,11 +35,13 @@ const ProductCard = (props: Props) => {
 
 			<div className="mt-2 p-2 text-sm flex flex-col gap-2">
 				<p className="font-semibold">{product.title}</p>
-				<p className="text-gray-500 text-xs" title={product.description}>{product.description.slice(0, 90)}...</p>
+				<p className="text-gray-500 text-xs" title={product.description}>
+					{product.description.slice(0, 90)}...
+				</p>
 				<p className="font-semibold">Rs. {product.price}</p>
 			</div>
 		</div>
 	);
 };
 
-export default ProductCard;
+export default memo(ProductCard);
