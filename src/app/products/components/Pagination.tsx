@@ -17,13 +17,18 @@ const Pagination = (props: Props) => {
 	const selectPageHandler = (selectedPage: number) => {
 		if (selectedPage >= 1 && selectedPage <= totalPages && selectedPage !== currentPage) {
 			setCurrentPage(selectedPage);
+
+			// Scroll to top when page changes (most useful for mobile devices)
+			setTimeout(() => {
+				window.scroll({ top: 0, left: 0, behavior: 'auto' });
+			});
 		}
 	};
 
 	return (
 		<div className="mt-8 flex justify-center gap-3 max-sm:gap-2">
 			<PaginationButton disabled={currentPage <= 1} onClick={() => selectPageHandler(currentPage - 1)}>
-				<ChevronLeft className='w-5' /> Previous
+				<ChevronLeft className="w-5" /> Previous
 			</PaginationButton>
 
 			{[...Array(totalPages)].map((_, index) => (
@@ -40,7 +45,7 @@ const Pagination = (props: Props) => {
 				disabled={currentPage >= totalPages}
 				onClick={() => selectPageHandler(currentPage + 1)}
 			>
-				Next <ChevronRight className='w-5' />
+				Next <ChevronRight className="w-5" />
 			</PaginationButton>
 		</div>
 	);
