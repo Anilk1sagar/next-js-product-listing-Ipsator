@@ -4,7 +4,7 @@ export const buildApiURL = (endpoint: string) => {
 	return `${siteConfig.apiBaseUrl}` + endpoint;
 };
 
-export const debounce = (cb: Function, delay: number = 500) => {
+export const debounce = (cb: (...args: any[]) => any, delay: number = 500) => {
 	if (typeof cb !== 'function') {
 		throw Error('Passed parameters must be a function');
 	}
