@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Product } from '@/types/product';
 import { debounce } from '@/utils/helpers';
@@ -8,10 +8,11 @@ import React, { memo, useState } from 'react';
 type Props = {
 	products: Product[];
 	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
+	onSearch?: () => void;
 };
 
 const SearchProducts = (props: Props) => {
-	const { products, setProducts } = props;
+	const { products, setProducts, onSearch } = props;
 
 	const [allProducts] = useState(products);
 
@@ -27,6 +28,8 @@ const SearchProducts = (props: Props) => {
 			);
 			setProducts(updatedProducts);
 		}
+
+		if (typeof onSearch === 'function') onSearch();
 	});
 
 	// const handleSearch = () => {

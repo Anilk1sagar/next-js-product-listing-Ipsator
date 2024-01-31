@@ -6,10 +6,11 @@ import React, { useState } from 'react';
 type Props = {
 	allProducts: Product[];
 	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
+	onFilterChange?: () => void;
 };
 
 const FilterByCategories = (props: Props) => {
-	const { allProducts, setProducts } = props;
+	const { allProducts, setProducts, onFilterChange } = props;
 
 	// States
 	const [categories, setCategories] = useState([
@@ -34,6 +35,10 @@ const FilterByCategories = (props: Props) => {
 		updatedCategories[categoryIndex].checked = checked;
 		setCategories(updatedCategories);
 		filterProducts(updatedCategories);
+
+		if (typeof onFilterChange === 'function') {
+			onFilterChange();
+		}
 	};
 
 	return (

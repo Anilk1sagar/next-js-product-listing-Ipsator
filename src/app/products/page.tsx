@@ -58,7 +58,11 @@ const ProductsPage = () => {
 				</div>
 
 				<div className="flex-1 flex sm:flex-row flex-col justify-between gap-4 md:pl-5">
-					<SearchProducts products={productsData} setProducts={setProductsData} />
+					<SearchProducts
+						products={productsData}
+						setProducts={setProductsData}
+						onSearch={() => setCurrentPage(1)}
+					/>
 					<SortProducts setProducts={setProductsData} />
 				</div>
 			</div>
@@ -69,7 +73,11 @@ const ProductsPage = () => {
 						<span className="font-semibold">FILTERS</span>
 					</div>
 
-					<FilterByCategories allProducts={products.data} setProducts={setProductsData} />
+					<FilterByCategories
+						allProducts={products.data}
+						setProducts={setProductsData}
+						onFilterChange={() => setCurrentPage(1)}
+					/>
 				</div>
 
 				<div className="products-container flex-1 mb-8">
