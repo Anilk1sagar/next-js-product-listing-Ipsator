@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Pagination from './_components/Pagination';
-import { fetchProducts } from '@/services/product.service';
+import { fetchProductsAPI } from '@/services/product.service';
 import ProductsList from './_components/ProductsList';
 import { Product } from '@/types/product';
 import SortProducts from './_components/SortProducts';
@@ -22,7 +22,7 @@ const ProductsPage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 
 	useEffect(() => {
-		fetchProducts()
+		fetchProductsAPI()
 			.then((resp) => {
 				setProducts({ data: resp, loading: false, error: null });
 			})
