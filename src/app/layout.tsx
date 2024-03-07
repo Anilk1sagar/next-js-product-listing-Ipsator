@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import Header from '@/components/Header';
-
-const inter = Inter({ subsets: ['latin'] });
+import { cn } from '@/lib/utils';
+import { fontInter } from '@/utils/fonts';
 
 export const metadata: Metadata = {
-	title: 'Products Listing App',
-	description: 'Products Listing App',
+	title: 'Shopping Project',
+	description: 'Nextjs and Typescript Shopping Project',
 };
 
 type Props = Readonly<{
@@ -17,7 +16,7 @@ type Props = Readonly<{
 export default function RootLayout({ children }: Props) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={cn('font-sans antialiased', fontInter.className)}>
 				<Header />
 				<main className="main-content w-full pt-5 px-10">{children}</main>
 			</body>

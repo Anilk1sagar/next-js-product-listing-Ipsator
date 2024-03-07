@@ -12,7 +12,13 @@ const Header = () => {
 		<header className="min-h-[var(--header-height)] border-b-[1px] border-gray-200 flex items-center px-10 shadow-sm">
 			<div className="container flex justify-between items-center">
 				<div className="font-bold">
-					<Image src="/assets/images/Ipsator_logo.svg" alt="Ipsator_logo" width={89} height={26} />
+					<Image
+						src="/assets/images/shopping-logo.svg"
+						alt="shopping-logo"
+						className="max-w-[50px]"
+						width={89}
+						height={26}
+					/>
 				</div>
 
 				<nav className="flex gap-3 text-sm">
