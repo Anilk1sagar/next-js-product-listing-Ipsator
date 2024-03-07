@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { cn } from '@/lib/utils';
 import { fontInter } from '@/utils/fonts';
 import AppStoreProvider from '@/store/appStoreProvider';
+import { Toaster } from '@/components/ui/toast/toaster';
 
 export const metadata: Metadata = {
 	title: 'Shopping Project',
@@ -22,6 +23,8 @@ export default function RootLayout({ children }: Props) {
 					<Header />
 					<main className="main-content w-full pt-5 px-10">{children}</main>
 				</AppStoreProvider>
+
+				<Toaster />
 			</body>
 		</html>
 	);
