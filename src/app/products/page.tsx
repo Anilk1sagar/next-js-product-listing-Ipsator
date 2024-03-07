@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Pagination from './components/Pagination';
+import Pagination from './_components/Pagination';
 import { fetchProducts } from '@/services/product.service';
-import ProductsList from './components/ProductsList';
+import ProductsList from './_components/ProductsList';
 import { Product } from '@/types/product';
-import SortProducts from './components/SortProducts';
-import SearchProducts from './components/SearchProducts';
-import FilterByCategories from './components/filter-products/FilterByCategories';
+import SortProducts from './_components/SortProducts';
+import SearchProducts from './_components/SearchProducts';
+import FilterByCategories from './_components/filter-products/FilterByCategories';
 
 const ItemsPerPage = 10;
 
