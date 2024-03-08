@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import '../styles/globals.css';
 import Header from '@/components/Header';
 import { cn } from '@/lib/utils';
-import { fontInter } from '@/utils/fonts';
+import { fontAssistant } from '@/utils/fonts';
 import AppStoreProvider from '@/store/appStoreProvider';
 import { Toaster } from '@/components/ui/toast/toaster';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
 	title: 'Shopping Project',
@@ -18,10 +19,13 @@ type Props = Readonly<{
 export default function RootLayout({ children }: Props) {
 	return (
 		<html lang="en">
-			<body className={cn('font-sans antialiased', fontInter.className)}>
+			<body className={cn('antialiased', fontAssistant.className)}>
 				<AppStoreProvider>
 					<Header />
-					<main className="main-content w-full pt-5 px-10">{children}</main>
+					<main className="main-content">
+						<div className="container pt-5">{children}</div>
+					</main>
+					<Footer />
 				</AppStoreProvider>
 
 				<Toaster />

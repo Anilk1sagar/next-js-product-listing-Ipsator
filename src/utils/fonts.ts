@@ -1,6 +1,8 @@
-import { Inter } from 'next/font/google';
+import { Assistant } from 'next/font/google';
 
-export const fontInter = Inter({
+export const fontAssistant = Assistant({
+	weight: ['300', '400', '500', '600', '700', '800'],
 	subsets: ['latin'],
-	variable: '--font-inter',
+	variable: '--font-assistant',
+	fallback: ['-apple-system', 'Helvetica', 'Arial', 'sans-serif'],
 });
