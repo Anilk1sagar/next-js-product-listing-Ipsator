@@ -16,7 +16,7 @@ const Header = () => {
 
 	return (
 		<header className="min-h-[var(--header-height)] flex items-center shadow fixed top-0 left-0 w-full bg-white z-50">
-			<div className="container flex justify-between items-center gap-20">
+			<div className="container flex justify-between items-center gap-20 max-lg:gap-10">
 				<div className="h-[30px] shrink-0">
 					<Link href="/">
 						<Image

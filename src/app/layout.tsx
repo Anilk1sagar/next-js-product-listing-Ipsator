@@ -22,9 +22,7 @@ export default function RootLayout({ children }: Props) {
 			<body className={cn('antialiased', fontAssistant.className)}>
 				<AppStoreProvider>
 					<Header />
-					<main className="main-content py-5">
-						<div className="flex-1 container flex flex-col">{children}</div>
-					</main>
+					<main className="main-content">{children}</main>
 					<Footer />
 				</AppStoreProvider>
 
