@@ -38,7 +38,7 @@ const SubscribeNewsletter = () => {
 		setIsSubmitInProcess(true);
 
 		setTimeout(() => {
-			toast({ title: 'Successfully added to the newsletter', variant: 'success' });
+			toast({ title: 'Successfully subscribed to the Newsletter', variant: 'success' });
 			setInputValue('');
 			setIsSubmitInProcess(false);
 		}, 1000);
