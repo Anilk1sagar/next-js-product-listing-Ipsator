@@ -8,14 +8,7 @@ import { ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
 import Search from './Search';
 import { cn } from '@/lib/utils';
-
-const NavLinks = [
-	{ label: 'Home', href: '/' },
-	{ label: 'Products', href: '/products' },
-	{ label: 'Men', href: '/' },
-	{ label: 'Women', href: '/' },
-	{ label: 'Kids', href: '/' },
-];
+import NavMenu from './NavMenu';
 
 const Header = () => {
 	const cart = useAppSelector((state) => state.cart.cart);
@@ -24,7 +17,7 @@ const Header = () => {
 	return (
 		<header className="min-h-[var(--header-height)] flex items-center shadow fixed top-0 left-0 w-full bg-white z-50">
 			<div className="container flex justify-between items-center gap-20">
-				<div className="h-[30px]">
+				<div className="h-[30px] shrink-0">
 					<Link href="/">
 						<Image
 							src="/assets/images/brand-logo.svg"
@@ -36,20 +29,10 @@ const Header = () => {
 					</Link>
 				</div>
 
-				<div className="flex-1 flex items-center gap-8 justify-between">
-					<nav className="flex items-center gap-5 font-semibold">
-						{NavLinks.map((navLink) => (
-							<Link
-								href={navLink.href}
-								key={navLink.href}
-								className={currentRoute === navLink.href ? 'text-primary' : ''}
-							>
-								{navLink.label}
-							</Link>
-						))}
-					</nav>
+				<div className="flex-1 flex items-center gap-8 justify-between max-md:gap-5">
+					<NavMenu currentRoute={currentRoute} />
 
-					<div className="flex-1 justify-end flex items-center gap-8">
+					<div className="flex-1 justify-end flex items-center gap-8 max-lg:gap-5">
 						<Search />
 
 						<Link
@@ -64,7 +47,7 @@ const Header = () => {
 									</div>
 								)}
 							</div>
-							<span>Cart</span>
+							<span className="max-md:hidden">Cart</span>
 						</Link>
 					</div>
 				</div>
