@@ -1,16 +1,18 @@
 'use client';
 
-import { Product } from '@/types/product';
 import React, { useState } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useAppSelector } from '@/store/hooks';
+import { Product } from '@/types/product';
 
 type Props = {
-	allProducts: Product[];
-	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
+	setProducts: (products: Product[]) => void;
 	onFilterChange?: () => void;
 };
 
 const FilterByCategories = (props: Props) => {
-	const { allProducts, setProducts, onFilterChange } = props;
+	const { setProducts, onFilterChange } = props;
+	const { products } = useAppSelector((state) => state.products);
 
 	// States
 	const [categories, setCategories] = useState([
@@ -21,11 +23,13 @@ const FilterByCategories = (props: Props) => {
 	]);
 
 	const filterProducts = (updatedCategories = categories) => {
+		if (!products.data) return;
+
 		const selectedCategories = updatedCategories.filter((cat) => cat.checked).map((c) => c.value);
 
-		let updatedProducts = [...allProducts];
+		let updatedProducts = [...products.data];
 		if (selectedCategories.length > 0) {
-			updatedProducts = allProducts.filter((p) => selectedCategories.includes(p.category));
+			updatedProducts = products.data.filter((p) => selectedCategories.includes(p.category));
 		}
 		setProducts(updatedProducts);
 	};
@@ -43,21 +47,20 @@ const FilterByCategories = (props: Props) => {
 
 	return (
 		<div>
-			<div className="font-semibold text-sm text-gray-800">CATEGORIES</div>
-			<div className="mt-2 flex flex-col gap-1">
+			<h4 className="font-bold text-xl mb-3">Categories</h4>
+
+			<div className="flex flex-col gap-1">
 				{categories.map((category, index) => (
-					<div className="flex items-center" key={category.value}>
-						<input
+					<div className="flex items-center gap-2" key={category.value}>
+						<Checkbox
+							className=""
 							checked={category.checked}
-							id={category.value}
-							type="checkbox"
-							className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600"
-							onChange={(e) => handleCategoryChange(e.target.checked, index)}
+							onCheckedChange={(checked) => {
+								handleCategoryChange(checked as boolean, index);
+								return checked;
+							}}
 						/>
-						<label
-							htmlFor={category.value}
-							className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-						>
+						<label htmlFor={category.value} className="text-sm font-medium">
 							{category.label}
 						</label>
 					</div>

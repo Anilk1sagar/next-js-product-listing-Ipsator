@@ -1,49 +1,50 @@
 import { Product } from '@/types/product';
 import React, { memo } from 'react';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 type Props = {
-	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>;
+	products: Product[];
+	setProducts: (products: Product[]) => void;
 };
 
 const SortProducts = (props: Props) => {
-	const { setProducts } = props;
+	const { products, setProducts } = props;
 
-	const sortWithPrice = (products: Product[], sortBy: string) => {
+	const handleSelectChange = (value: string) => {
 		const updatedProducts = [...products];
 
-		if (sortBy === 'price_desc') {
+		if (value === 'price_desc') {
 			updatedProducts.sort((a, b) => b.price - a.price);
-		} else if (sortBy === 'price_aesc') {
+		} else if (value === 'price_aesc') {
 			updatedProducts.sort((a, b) => a.price - b.price);
 		}
-		return updatedProducts;
-	};
 
-	const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const value = e.target.value;
-
-		setProducts((prevState) => {
-			return prevState ? sortWithPrice(prevState, value) : prevState;
-		});
+		setProducts(updatedProducts);
 	};
 
 	return (
-		<div className="flex items-center min-w-[220px]">
-			<label htmlFor="products" className="block text-sm font-medium text-gray-900 w-[90px]">
-				Sort by:
-			</label>
-			<select
-				id="products"
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-				onChange={handleSelectChange}
-			>
-				<option selected value={undefined} disabled>
-					Choose a option
-				</option>
-				<option value="price_desc">Price: High to Low</option>
-				<option value="price_aesc">Price: Low to High</option>
-			</select>
-		</div>
+		<>
+			<Select onValueChange={handleSelectChange}>
+				<SelectTrigger className="w-full font-semibold focus:ring-0 focus:ring-offset-0 border-gray-300">
+					<div className="flex gap-2">
+						<span className="font-normal">Sort by:</span> <SelectValue placeholder="Choose here" />
+					</div>
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						<SelectItem value="price_desc">Price: High to Low</SelectItem>
+						<SelectItem value="price_aesc">Price: Low to High</SelectItem>
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+		</>
 	);
 };
 

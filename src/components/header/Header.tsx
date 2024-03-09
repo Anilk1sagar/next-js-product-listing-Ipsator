@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
@@ -13,9 +13,34 @@ import NavMenu from './NavMenu';
 const Header = () => {
 	const cart = useAppSelector((state) => state.cart.cart);
 	const currentRoute = usePathname();
+	const headerRef = useRef<HTMLElement | null>(null);
+	const [isBodyScrollLocked, setIsBodyScrollLocked] = useState(false);
+
+	useEffect(() => {
+		const observer = new MutationObserver(function (mutations) {
+			mutations.forEach(function (mutation) {
+				if (mutation.type === 'attributes') {
+					setIsBodyScrollLocked(document.body.hasAttribute('data-scroll-locked'));
+				}
+			});
+		});
+		observer.observe(document.body, { attributes: true });
+	}, []);
+
+	useEffect(() => {
+		const headerElem = headerRef.current;
+		if (headerElem) {
+			headerElem.style.paddingRight = isBodyScrollLocked
+				? `${window.innerWidth - document.documentElement.clientWidth}px`
+				: '0px';
+		}
+	}, [isBodyScrollLocked]);
 
 	return (
-		<header className="min-h-[var(--header-height)] flex items-center shadow fixed top-0 left-0 w-full bg-white z-50">
+		<header
+			className="min-h-[var(--header-height)] flex items-center shadow fixed top-0 left-0 w-full bg-white z-50"
+			ref={headerRef}
+		>
 			<div className="container flex justify-between items-center gap-20 max-lg:gap-10">
 				<div className="h-[30px] shrink-0">
 					<Link href="/">
