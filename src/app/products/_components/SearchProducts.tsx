@@ -57,14 +57,6 @@ const SearchProducts = (props: Props) => {
 					onChange={handleInputChange}
 				/>
 			</div>
-			{/* <button
-				type="button"
-				onClick={handleSearch}
-				disabled={!searchTerm}
-				className="text-white bg-gray-500 disabled:bg-gray-300 focus:outline-none font-medium rounded-sm text-sm px-4 py-[9px]"
-			>
-				Search
-			</button> */}
 		</div>
 	);
 };

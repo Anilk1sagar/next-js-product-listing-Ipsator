@@ -51,7 +51,7 @@ const ProductsPage = () => {
 	}
 
 	return (
-		<div>
+		<div className="">
 			<div className="flex flex-col md:flex-row md:items-center gap-4 border-b-[1px] border-gray-200 pb-1">
 				<div className="md:basis-[200px]">
 					<strong>Total Products</strong> - <span className="text-gray-500">{productsData.length}</span>

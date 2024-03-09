@@ -4,7 +4,7 @@
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
+		--background: 240, 11%, 98%;
 		--foreground: 222.2 84% 4.9%;
 
 		--card: 0 0% 100%;
@@ -79,7 +79,7 @@
 
 .main-content {
 	width: 100%;
-	padding-top: var(--header-height);
-	min-height: calc(100vh);
+	margin-top: var(--header-height);
+	min-height: calc(100vh - var(--header-height));
 	display: flex;
 }
