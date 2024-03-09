@@ -6,3 +6,8 @@ export const fetchProductsAPI = async () => {
 	const { data } = await http.get(buildApiURL(`/products`));
 	return data as Product[];
 };
+
+export const fetchProductByIdAPI = async (productId: string) => {
+	const { data } = await http.get(buildApiURL(`/products/${productId}`));
+	return data as Product;
+};

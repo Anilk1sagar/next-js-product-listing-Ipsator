@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import ProductCard from './ProductCard';
 import { useAppSelector } from '@/store/hooks';
+import Product404 from '@/components/Product404';
 
 type Props = {
 	currentPage: number;
@@ -17,7 +18,7 @@ const ProductsList = (props: Props) => {
 	}
 
 	if (filteredProducts.length === 0) {
-		return <div>No products found!</div>;
+		return <Product404 />;
 	}
 
 	return (

@@ -36,6 +36,11 @@ const Pagination = (props: Props) => {
 					key={index}
 					disabled={currentPage === index + 1}
 					onClick={() => selectPageHandler(index + 1)}
+					className={
+						currentPage === index + 1
+							? 'bg-primary text-primary-foreground border-primary hover:border-primary disabled:hover:border-primary'
+							: ''
+					}
 				>
 					{index + 1}
 				</PaginationButton>

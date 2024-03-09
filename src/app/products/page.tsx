@@ -21,7 +21,7 @@ const ProductsPage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 
 	useEffect(() => {
-		dispatch(fetchProducts());
+		// dispatch(fetchProducts());
 	}, [dispatch]);
 
 	const handleSetFilteredProducts = (data: Product[]) => {
@@ -48,7 +48,7 @@ const ProductsPage = () => {
 	}
 
 	return (
-		<div className="flex-1 pb-5">
+		<div className="flex-1 flex flex-col pb-5">
 			<section className="bg-[#F9EBE7] py-10">
 				<div className="container text-center">
 					<h1 className="text-4xl font-semibold">Products</h1>
@@ -56,7 +56,7 @@ const ProductsPage = () => {
 				</div>
 			</section>
 
-			<section className="py-10">
+			<section className="flex-1 flex py-10">
 				<div className="container flex gap-16">
 					<div className="basis-[220px] flex flex-col gap-6">
 						<SortProducts products={filteredProducts} setProducts={handleSetFilteredProducts} />
@@ -74,12 +74,15 @@ const ProductsPage = () => {
 
 					<div className="products-container flex-1 mb-8">
 						<ProductsList currentPage={currentPage} itemsPerPage={ItemsPerPage} />
-						<Pagination
-							products={filteredProducts}
-							currentPage={currentPage}
-							setCurrentPage={setCurrentPage}
-							itemsPerPage={ItemsPerPage}
-						/>
+
+						{filteredProducts.length > ItemsPerPage && (
+							<Pagination
+								products={filteredProducts}
+								currentPage={currentPage}
+								setCurrentPage={setCurrentPage}
+								itemsPerPage={ItemsPerPage}
+							/>
+						)}
 					</div>
 				</div>
 			</section>

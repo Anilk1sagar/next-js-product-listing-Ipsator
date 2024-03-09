@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
@@ -14,7 +14,12 @@ const Header = () => {
 	const cart = useAppSelector((state) => state.cart.cart);
 	const currentRoute = usePathname();
 	const headerRef = useRef<HTMLElement | null>(null);
+	const scrollBarWidth = useRef<number>();
 	const [isBodyScrollLocked, setIsBodyScrollLocked] = useState(false);
+
+	useLayoutEffect(() => {
+		scrollBarWidth.current = window.innerWidth - document.documentElement.clientWidth;
+	}, []);
 
 	useEffect(() => {
 		const observer = new MutationObserver(function (mutations) {
@@ -30,9 +35,7 @@ const Header = () => {
 	useEffect(() => {
 		const headerElem = headerRef.current;
 		if (headerElem) {
-			headerElem.style.paddingRight = isBodyScrollLocked
-				? `${window.innerWidth - document.documentElement.clientWidth}px`
-				: '0px';
+			headerElem.style.paddingRight = isBodyScrollLocked ? `${scrollBarWidth.current}px` : '0px';
 		}
 	}, [isBodyScrollLocked]);
 

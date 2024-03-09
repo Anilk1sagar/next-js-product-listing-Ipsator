@@ -1,7 +1,7 @@
 import { createAppAsyncThunk } from '@/store/hooks';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Product } from '@/types/product';
-import { fetchProductsAPI } from '@/services/product.service';
+import { fetchProductByIdAPI, fetchProductsAPI } from '@/services/product.service';
 
 /** Internal Actions */
 export type ProductsState = {
@@ -14,8 +14,38 @@ export type ProductsState = {
 };
 
 const initialState: ProductsState = {
-	products: { data: null, isLoading: false, error: null },
-	filteredProducts: null,
+	products: {
+		data: [
+			{
+				id: 1,
+				title: 'string',
+				price: 100.23,
+				description: 'Electronics',
+				category: 'string',
+				image: 'string',
+				rating: {
+					rate: 4,
+					count: 10,
+				},
+			},
+		],
+		isLoading: false,
+		error: null,
+	},
+	filteredProducts: [
+		{
+			id: 1,
+			title: 'string',
+			price: 100.23,
+			description: 'Electronics',
+			category: 'string',
+			image: 'string',
+			rating: {
+				rate: 4,
+				count: 10,
+			},
+		},
+	],
 };
 
 /** Slice & Reducers */
@@ -55,6 +85,18 @@ export const fetchProducts = createAppAsyncThunk(
 		try {
 			const products = await fetchProductsAPI();
 			return products;
+		} catch (error: any) {
+			return rejectWithValue(error.response?.data ?? 'Something went wrong');
+		}
+	}
+);
+
+export const fetchProductById = createAppAsyncThunk(
+	'products/fetchProductById',
+	async (params: { productId: string }, { getState: _getState, rejectWithValue }) => {
+		try {
+			const product = await fetchProductByIdAPI(params.productId);
+			return product;
 		} catch (error: any) {
 			return rejectWithValue(error.response?.data ?? 'Something went wrong');
 		}
