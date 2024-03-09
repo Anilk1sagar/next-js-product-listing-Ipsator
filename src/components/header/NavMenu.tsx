@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 
 const NavLinks = [
 	{ label: 'Home', href: '/' },
@@ -18,40 +20,45 @@ type Props = {
 
 const NavMenu = (props: Props) => {
 	const { currentRoute } = props;
-	const navbarBoxRef = useRef<HTMLDivElement | null>(null);
 
-	const handleMenuClick = () => {
-		// const elem = navbarBoxRef.current;
-		// if (!elem) return;
-		// if (elem.classList.contains('max-md:translate-x-full')) {
-		// 	elem.classList.remove('max-md:translate-x-full');
-		// } else {
-		// 	elem.classList.add('max-md:translate-x-full');
-		// }
-	};
+	const [isSheetOpen, setIsSheetOpen] = useState(false);
 
 	return (
 		<div className="max-md:order-2">
-			<div
-				className="max-md:fixed max-md:top-[var(--header-height)] max-md:right-0 max-md:translate-x-full max-md:transition-transform max-md:h-full max-md:max-w-[250px] max-md:bg-white max-md:z-40 max-md:shadow-lg"
-				ref={navbarBoxRef}
-			>
-				<nav className="flex items-center gap-5 font-semibold">
-					{NavLinks.map((navLink) => (
-						<Link
-							href={navLink.href}
-							key={navLink.href}
-							className={currentRoute === navLink.href ? 'text-primary' : ''}
-						>
-							{navLink.label}
-						</Link>
-					))}
-				</nav>
-			</div>
+			<nav className="max-md:hidden flex items-center gap-5 font-semibold">
+				{NavLinks.map((navLink) => (
+					<Link
+						href={navLink.href}
+						key={navLink.label}
+						className={currentRoute === navLink.href ? 'text-primary' : ''}
+					>
+						{navLink.label}
+					</Link>
+				))}
+			</nav>
 
-			<button className="hidden max-md:block" onClick={handleMenuClick}>
-				<Menu size={20} />
-			</button>
+			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+				<SheetTrigger className="hidden max-md:block" onClick={() => setIsSheetOpen(true)}>
+					<Menu size={20} />
+				</SheetTrigger>
+				<SheetContent className="w-[280px]">
+					<nav className="flex flex-col gap-1 font-semibold">
+						{NavLinks.map((navLink) => (
+							<Link
+								href={navLink.href}
+								key={navLink.label}
+								className={cn(
+									'px-3 py-2 hover:bg-[#F9EBE7] rounded transition-colors',
+									currentRoute === navLink.href ? 'bg-primary text-primary-foreground hover:bg-primary' : ''
+								)}
+								onClick={() => setIsSheetOpen(false)}
+							>
+								{navLink.label}
+							</Link>
+						))}
+					</nav>
+				</SheetContent>
+			</Sheet>
 		</div>
 	);
 };
