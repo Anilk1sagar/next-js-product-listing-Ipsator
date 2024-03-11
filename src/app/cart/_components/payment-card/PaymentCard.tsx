@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { CartProduct } from '@/store/slices/cart';
 import React, { useMemo } from 'react';
+import CouponField from './CouponField';
 
 type Props = {
 	cart: CartProduct[];
@@ -17,6 +18,10 @@ const PaymentCard = (props: Props) => {
 
 	return (
 		<div className="p-4 w-full bg-white border border-gray-200 rounded">
+			<CouponField />
+
+			<hr className="my-4" />
+
 			<p className="mb-3 uppercase text-xs font-bold text-gray-500">Price details ({cart.length} item)</p>
 
 			<div className="space-y-2 text-sm">

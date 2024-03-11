@@ -3,7 +3,7 @@
 import { useAppSelector } from '@/store/hooks';
 import React from 'react';
 import EmptyCart from './_components/EmptyCart';
-import PaymentCard from './_components/PaymentCard';
+import PaymentCard from './_components/payment-card/PaymentCard';
 import CartItemCard from './_components/CartItemCard';
 
 const CartPage = () => {
