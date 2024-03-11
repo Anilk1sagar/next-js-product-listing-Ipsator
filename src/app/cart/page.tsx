@@ -22,7 +22,7 @@ const CartPage = () => {
 						<p className="text-gray-600">Total {cart.length} items</p>
 					</div>
 
-					<div className="flex gap-10">
+					<div className="flex gap-10 max-md:flex-col max-lg:gap-5 max-md:gap-10">
 						<div className="flex-1">
 							<div className="flex flex-col gap-4">
 								{cart.map((item) => (
@@ -31,7 +31,7 @@ const CartPage = () => {
 							</div>
 						</div>
 
-						<div className="basis-[320px]">
+						<div className="basis-[320px] max-lg:basis-[250px]">
 							<PaymentCard cart={cart} />
 						</div>
 					</div>

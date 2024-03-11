@@ -25,8 +25,8 @@ const CartItemCard = (props: Props) => {
 				<X className="text-gray-500 hover:text-foreground" size={20} />
 			</Button>
 
-			<div className="pr-5 flex gap-4">
-				<div className="basis-[150px] h-[150px] flex justify-center items-center bg-gray-50">
+			<div className="pr-5 flex gap-4 max-sm:flex-col">
+				<div className="basis-[150px] max-h-[140px] max-lg:basis-[100px] max-md:basis-[150px] flex justify-center items-center bg-gray-50">
 					<Image
 						src={product.image}
 						alt={product.title}

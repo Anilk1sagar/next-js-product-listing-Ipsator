@@ -50,7 +50,7 @@ const CouponField = () => {
 					id="coupon"
 					placeholder="Coupon Code"
 					className={cn(
-						'h-8 uppercase block w-full placeholder:text-gray-400 text-sm rounded-e-none focus-visible:ring-1 focus-visible:ring-offset-1 transition-all',
+						'h-8 bg-white uppercase block w-full placeholder:text-gray-400 text-sm rounded-e-none focus-visible:ring-1 focus-visible:ring-offset-1 transition-all',
 						inputError &&
 							'border-destructive focus-visible:ring-destructive focus-visible:ring-offset-destructive'
 					)}
