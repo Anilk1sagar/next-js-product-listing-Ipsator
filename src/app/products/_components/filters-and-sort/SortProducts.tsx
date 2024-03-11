@@ -30,11 +30,14 @@ const SortProducts = (props: Props) => {
 	};
 
 	return (
-		<>
+		<div>
 			<Select onValueChange={handleSelectChange}>
-				<SelectTrigger className="w-full font-semibold focus:ring-0 focus:ring-offset-0 border-gray-300">
+				<SelectTrigger className="w-full font-semibold focus:ring-0 focus:ring-offset-0 border-gray-300 bg-white">
 					<div className="flex gap-2">
-						<span className="font-normal">Sort by:</span> <SelectValue placeholder="Choose here" />
+						<span className="font-normal">Sort by:</span>{' '}
+						<span className="max-[400px]:hidden">
+							<SelectValue placeholder="Choose here" />
+						</span>
 					</div>
 				</SelectTrigger>
 				<SelectContent>
@@ -44,7 +47,7 @@ const SortProducts = (props: Props) => {
 					</SelectGroup>
 				</SelectContent>
 			</Select>
-		</>
+		</div>
 	);
 };
 

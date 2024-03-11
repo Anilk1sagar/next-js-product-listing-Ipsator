@@ -1,15 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Pagination from './_components/Pagination';
+import Pagination from './_components/pagination/Pagination';
 import ProductsList from './_components/ProductsList';
-import { Product } from '@/types/product';
-import SortProducts from './_components/SortProducts';
-// import SearchProducts from './_components/SearchProducts';
-import FilterByCategories from './_components/filter-products/FilterByCategories';
 import { Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchProducts, setFilteredProducts } from '@/store/slices/products';
+import { fetchProducts } from '@/store/slices/products';
+import FiltersAndSort from './_components/filters-and-sort/FiltersAndSort';
 
 const ItemsPerPage = 10;
 
@@ -23,10 +20,6 @@ const ProductsPage = () => {
 	useEffect(() => {
 		// dispatch(fetchProducts());
 	}, [dispatch]);
-
-	const handleSetFilteredProducts = (data: Product[]) => {
-		dispatch(setFilteredProducts(data));
-	};
 
 	if (products.error) {
 		return (
@@ -57,20 +50,8 @@ const ProductsPage = () => {
 			</section>
 
 			<section className="flex-1 flex py-10">
-				<div className="container flex gap-16">
-					<div className="basis-[220px] flex flex-col gap-6">
-						<SortProducts products={filteredProducts} setProducts={handleSetFilteredProducts} />
-						{/* <SearchProducts
-							products={productsData}
-							setProducts={setProductsData}
-							onSearch={() => setCurrentPage(1)}
-						/> */}
-
-						<FilterByCategories
-							setProducts={handleSetFilteredProducts}
-							onFilterChange={() => setCurrentPage(1)}
-						/>
-					</div>
+				<div className="container flex gap-12 max-lg:gap-10 max-[900px]:flex-col max-[900px]:gap-8">
+					<FiltersAndSort setCurrentPage={setCurrentPage} />
 
 					<div className="products-container flex-1 mb-8">
 						<ProductsList currentPage={currentPage} itemsPerPage={ItemsPerPage} />
