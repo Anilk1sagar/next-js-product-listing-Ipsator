@@ -32,7 +32,7 @@ const CartItemCard = (props: Props) => {
 						alt={product.title}
 						width={250}
 						height={200}
-						className="w-auto max-h-full h-auto"
+						className="w-auto max-w-full h-auto max-h-full"
 						loader={() => product.image}
 					/>
 				</div>
@@ -75,7 +75,7 @@ const CartItemCard = (props: Props) => {
 					<div className="mt-auto flex flex-wrap gap-2 justify-between items-center">
 						<p className="shrink-0 font-semibold flex flex-col leading-[0.9rem]">
 							<span className="text-xs line-through text-gray-400">
-								Rs. {(product.price + 10).toFixed(2)}
+								Rs. {(product.price * product.quantity + 10).toFixed(2)}
 							</span>
 							<span>Rs. {(product.price * product.quantity).toFixed(2)}</span>
 						</p>

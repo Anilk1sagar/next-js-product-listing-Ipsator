@@ -11,19 +11,19 @@ type Props = {
 const ProductsList = (props: Props) => {
 	const { currentPage, itemsPerPage } = props;
 
-	const { products, filteredProducts } = useAppSelector((state) => state.products);
+	const products = useAppSelector((state) => state.products.products);
 
-	if (products.isLoading || !products.data || !filteredProducts) {
-		return <div>Loading</div>;
+	if (products.isLoading || !products.data) {
+		return <div>Loading...</div>;
 	}
 
-	if (filteredProducts.length === 0) {
+	if (products.data.length === 0) {
 		return <Product404 />;
 	}
 
 	return (
 		<div className="grid grid-cols-1 gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
-			{filteredProducts
+			{products.data
 				.slice(currentPage * itemsPerPage - itemsPerPage, currentPage * itemsPerPage)
 				.map((product) => (
 					<div className="flex" key={product.id}>

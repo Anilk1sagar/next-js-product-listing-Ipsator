@@ -10,7 +10,6 @@ export type ProductsState = {
 		isLoading: boolean;
 		error: any | null;
 	};
-	filteredProducts: Product[] | null;
 };
 
 const DummyProducts = [
@@ -278,11 +277,10 @@ const DummyProducts = [
 
 const initialState: ProductsState = {
 	products: {
-		data: DummyProducts,
+		data: null,
 		isLoading: false,
 		error: null,
 	},
-	filteredProducts: DummyProducts,
 };
 
 /** Slice & Reducers */
@@ -290,19 +288,22 @@ export const productsSlice = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		setFilteredProducts: (state, action: PayloadAction<Product[]>) => {
-			state.filteredProducts = action.payload;
+		setProducts: (state, action: PayloadAction<Product[]>) => {
+			state.products.data = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchProducts.pending, (state) => {
 			state.products.isLoading = true;
 		});
-		builder.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
-			state.products.data = action.payload;
-			state.filteredProducts = action.payload;
-			state.products.isLoading = false;
-		});
+		builder.addCase(
+			fetchProducts.fulfilled,
+			(state, action: PayloadAction<{ products: Product[]; filters: { s?: string | null } }>) => {
+				const { products, filters } = action.payload;
+				state.products.data = getFilteredProducts(products, filters);
+				state.products.isLoading = false;
+			}
+		);
 		builder.addCase(fetchProducts.rejected, (state, action: PayloadAction<any>) => {
 			state.products.error = action.payload;
 			state.products.isLoading = false;
@@ -310,18 +311,32 @@ export const productsSlice = createSlice({
 	},
 });
 
-export const { setFilteredProducts } = productsSlice.actions;
+export const { setProducts } = productsSlice.actions;
 export default productsSlice.reducer;
+
+const getFilteredProducts = (products: Product[], filters: { s?: string | null }) => {
+	const serachTerm = filters.s;
+	if (serachTerm) {
+		return products.filter((product) => product.title.toLowerCase().includes(serachTerm.toLowerCase()));
+	}
+
+	return products;
+};
 
 /**
  * Async Thunk Functions
  */
 export const fetchProducts = createAppAsyncThunk(
 	'products/fetchProducts',
-	async (_, { getState: _getState, rejectWithValue }) => {
+	async (params: { s?: string | null }, { getState: _getState, rejectWithValue }) => {
 		try {
-			const products = await fetchProductsAPI();
-			return products;
+			// const products = await fetchProductsAPI();
+
+			const products = (await new Promise((resolve) =>
+				setTimeout(() => resolve(DummyProducts), 500)
+			)) as Product[];
+
+			return { products, filters: params || {} };
 		} catch (error: any) {
 			return rejectWithValue(error.response?.data ?? 'Something went wrong');
 		}

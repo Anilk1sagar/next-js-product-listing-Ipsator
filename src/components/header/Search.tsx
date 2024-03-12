@@ -1,27 +1,29 @@
-import React, { memo, useRef } from 'react';
+'use client';
+
+import React, { memo, useRef, useState } from 'react';
 import { Search as SearchIcon, X } from 'lucide-react';
-import { debounce } from '@/utils/helpers';
 import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const Search = () => {
+	const router = useRouter();
+	const searchParams = useSearchParams();
 	const searchBoxRef = useRef<HTMLDivElement | null>(null);
 
-	const handleInputChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+	const [searchTerm, setSearchTerm] = useState(searchParams.get('s') || '');
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
-		console.log('search input: ', value);
-		// setSearchTerm(value);
+		// console.log('search input: ', value);
+		setSearchTerm(value);
+		if (!value) {
+			router.replace('/products');
+		}
+	};
 
-		// if (!value) {
-		// 	setProducts([...allProducts]);
-		// } else {
-		// 	const updatedProducts = products.filter((product) =>
-		// 		product.title.toLowerCase().includes(value.toLowerCase())
-		// 	);
-		// 	setProducts(updatedProducts);
-		// }
-	});
-
-	const showSearch = (show: boolean) => {
+	const showSearchInput = (show: boolean) => {
 		const elem = searchBoxRef.current;
 		if (!elem) return;
 		if (show && elem.classList.contains('max-md:hidden')) {
@@ -46,20 +48,32 @@ const Search = () => {
 						type="search"
 						id="search"
 						placeholder="Search for products, brands and more"
-						className="block w-full bg-gray-50 text-sm ps-10 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white focus-visible:shadow"
+						className="block w-full bg-gray-50 text-sm ps-10 pe-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white focus-visible:shadow"
+						value={searchTerm}
 						onChange={handleInputChange}
 					/>
+
+					{searchTerm && (
+						<Link
+							href={{ pathname: '/products', query: { s: searchTerm } }}
+							className="absolute right-2 top-1/2 -translate-y-1/2"
+						>
+							<Button type="button" variant="secondary" size="xs">
+								Search
+							</Button>
+						</Link>
+					)}
 				</div>
 
 				<button
 					className="hidden max-md:block bg-white ml-2 text-gray-500 hover:text-gray-700"
-					onClick={() => showSearch(false)}
+					onClick={() => showSearchInput(false)}
 				>
 					<X size={25} />
 				</button>
 			</div>
 
-			<button className="hidden max-md:block" onClick={() => showSearch(true)}>
+			<button className="hidden max-md:block" onClick={() => showSearchInput(true)}>
 				<SearchIcon className="w-5" />
 			</button>
 		</div>

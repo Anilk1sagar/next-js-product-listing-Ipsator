@@ -7,19 +7,22 @@ import { Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchProducts } from '@/store/slices/products';
 import FiltersAndSort from './_components/filters-and-sort/FiltersAndSort';
+import { useSearchParams } from 'next/navigation';
 
 const ItemsPerPage = 10;
 
 const ProductsPage = () => {
+	const searchParams = useSearchParams();
 	const dispatch = useAppDispatch();
-	const { products, filteredProducts } = useAppSelector((state) => state.products);
+	const products = useAppSelector((state) => state.products.products);
 
 	// States
 	const [currentPage, setCurrentPage] = useState<number>(1);
 
 	useEffect(() => {
-		// dispatch(fetchProducts());
-	}, [dispatch]);
+		const searchTerm = searchParams.get('s');
+		dispatch(fetchProducts({ s: searchTerm }));
+	}, [dispatch, searchParams]);
 
 	if (products.error) {
 		return (
@@ -31,7 +34,7 @@ const ProductsPage = () => {
 		);
 	}
 
-	if (products.isLoading || !products.data || !filteredProducts) {
+	if (products.isLoading || !products.data) {
 		return (
 			<div className="flex-1 container flex flex-col items-center justify-center gap-3">
 				<Loader2 size={50} className="animate-spin text-primary" />
@@ -45,7 +48,7 @@ const ProductsPage = () => {
 			<section className="bg-[#F9EBE7] py-10">
 				<div className="container text-center">
 					<h1 className="text-4xl font-semibold">Products</h1>
-					<p className="text-gray-800">{filteredProducts.length} items</p>
+					<p className="text-gray-800">{products.data.length} items</p>
 				</div>
 			</section>
 
@@ -56,9 +59,9 @@ const ProductsPage = () => {
 					<div className="products-container flex-1 mb-8">
 						<ProductsList currentPage={currentPage} itemsPerPage={ItemsPerPage} />
 
-						{filteredProducts.length > ItemsPerPage && (
+						{products.data.length > ItemsPerPage && (
 							<Pagination
-								products={filteredProducts}
+								products={products.data}
 								currentPage={currentPage}
 								setCurrentPage={setCurrentPage}
 								itemsPerPage={ItemsPerPage}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAppSelector } from '@/store/hooks';
 import { Product } from '@/types/product';
@@ -12,7 +12,8 @@ type Props = {
 
 const FilterByCategories = (props: Props) => {
 	const { setProducts, onFilterChange } = props;
-	const { products } = useAppSelector((state) => state.products);
+	const products = useAppSelector((state) => state.products.products);
+	const allProducts = useRef(products.data).current;
 
 	// States
 	const [categories, setCategories] = useState([
@@ -23,13 +24,13 @@ const FilterByCategories = (props: Props) => {
 	]);
 
 	const filterProducts = (updatedCategories = categories) => {
-		if (!products.data) return;
+		if (!allProducts) return;
 
 		const selectedCategories = updatedCategories.filter((cat) => cat.checked).map((c) => c.value);
 
-		let updatedProducts = [...products.data];
+		let updatedProducts = [...allProducts];
 		if (selectedCategories.length > 0) {
-			updatedProducts = products.data.filter((p) => selectedCategories.includes(p.category));
+			updatedProducts = allProducts.filter((p) => selectedCategories.includes(p.category));
 		}
 		setProducts(updatedProducts);
 	};
