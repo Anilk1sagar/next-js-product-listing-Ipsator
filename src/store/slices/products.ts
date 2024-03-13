@@ -1,7 +1,10 @@
 import { createAppAsyncThunk } from '@/store/hooks';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Product } from '@/types/product';
-import { fetchProductByIdAPI, fetchProductsAPI } from '@/services/product.service';
+import {
+	fetchProductByIdAPI,
+	// fetchProductsAPI
+} from '@/services/product.service';
 
 /** Internal Actions */
 export type ProductsState = {

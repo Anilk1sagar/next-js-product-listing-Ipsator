@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
@@ -61,7 +61,9 @@ const Header = () => {
 					<NavMenu currentRoute={currentRoute} />
 
 					<div className="flex-1 justify-end flex items-center gap-8 max-lg:gap-5">
-						<Search />
+						<Suspense fallback={<></>}>
+							<Search />
+						</Suspense>
 
 						<Link
 							href="/cart"
