@@ -20,7 +20,7 @@ const Pagination = (props: Props) => {
 
 			// Scroll to top when page changes (most useful for mobile devices)
 			setTimeout(() => {
-				window.scroll({ top: 0, left: 0, behavior: 'auto' });
+				window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 			});
 		}
 	};
@@ -38,7 +38,7 @@ const Pagination = (props: Props) => {
 					onClick={() => selectPageHandler(index + 1)}
 					className={
 						currentPage === index + 1
-							? 'bg-primary text-primary-foreground border-primary hover:border-primary disabled:hover:border-primary'
+							? 'bg-primary text-primary-foreground border-primary hover:border-primary disabled:hover:border-primary disabled:opacity-100'
 							: ''
 					}
 				>

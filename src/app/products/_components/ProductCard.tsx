@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addToCart, removeFromCart } from '@/store/slices/cart';
 import { Product } from '@/types/product';
-import { Star } from 'lucide-react';
+import { ShoppingCart, Star } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { memo } from 'react';
@@ -30,10 +30,10 @@ const ProductCard = (props: Props) => {
 	return (
 		<>
 			<div
-				className="flex flex-col w-full bg-white border border-gray-200 rounded-xl hover:shadow transition-shadow cursor-pointer"
+				className="flex flex-col w-full p-4 bg-white border border-gray-200 rounded-sm hover:shadow transition-shadow cursor-pointer"
 				onClick={handleCardClick}
 			>
-				<div className="flex justify-center items-center h-[200px] relative rounded-xl">
+				<div className="mb-4 flex justify-center items-center h-[200px] relative rounded-sm">
 					<Image
 						src={product.image}
 						alt={product.title}
@@ -54,7 +54,7 @@ const ProductCard = (props: Props) => {
 					</div>
 				</div>
 
-				<div className="flex-1 mt-1 p-4 flex flex-col gap-2">
+				<div className="flex-1 mt-1 flex flex-col gap-2">
 					<p className="font-semibold text-sm">{product.title}</p>
 					<p className="mb-4 text-gray-500 text-xs line-clamp-2" title={product.description}>
 						{product.description}
@@ -68,29 +68,32 @@ const ProductCard = (props: Props) => {
 							<span>Rs. {product.price}</span>
 						</p>
 
-						{isInCart() ? (
-							<Button
-								className="rounded-sm"
-								size="xs"
-								variant="outlinePrimary"
-								onClick={(e) => {
-									e.stopPropagation();
-									dispatch(removeFromCart(product.id));
-								}}
-							>
-								Remove
-							</Button>
-						) : (
-							<Button
-								size="xs"
-								onClick={(e) => {
-									e.stopPropagation();
-									dispatch(addToCart(product));
-								}}
-							>
-								Add
-							</Button>
-						)}
+						<div className="font-semibold">
+							{isInCart() ? (
+								<Button
+									className="rounded-sm"
+									size="xs"
+									variant="outlinePrimary"
+									onClick={(e) => {
+										e.stopPropagation();
+										dispatch(removeFromCart(product.id));
+									}}
+								>
+									Remove <ShoppingCart className="ml-1" size={16} />
+								</Button>
+							) : (
+								<Button
+									className="px-3"
+									size="xs"
+									onClick={(e) => {
+										e.stopPropagation();
+										dispatch(addToCart(product));
+									}}
+								>
+									Add <ShoppingCart className="ml-1" size={16} />
+								</Button>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

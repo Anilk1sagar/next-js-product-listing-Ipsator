@@ -21,7 +21,7 @@ const ProductPage = (props: Props) => {
 	});
 
 	useEffect(() => {
-		dispatch(fetchProductById({ productId: params.id }))
+		dispatch(fetchProductById({ productId: +params.id }))
 			.unwrap()
 			.then((resp) => {
 				setProduct({ data: resp, isLoading: false, error: null });

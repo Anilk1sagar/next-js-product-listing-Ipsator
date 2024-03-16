@@ -5,10 +5,11 @@ import { Search as SearchIcon, X } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const Search = () => {
 	const router = useRouter();
+	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const searchBoxRef = useRef<HTMLDivElement | null>(null);
 
@@ -18,7 +19,7 @@ const Search = () => {
 		const value = e.target.value;
 		// console.log('search input: ', value);
 		setSearchTerm(value);
-		if (!value) {
+		if (!value && pathname.includes('/products')) {
 			router.replace('/products');
 		}
 	};
@@ -36,7 +37,7 @@ const Search = () => {
 	return (
 		<div className="flex w-full items-center justify-end relative">
 			<div
-				className="flex items-center max-w-[400px] w-full max-md:hidden max-md:fixed max-md:left-8 max-md:-translate-x-8 max-md:px-8 max-md:max-w-full max-md:z-30"
+				className="flex items-center max-w-[400px] bg-white w-full max-md:hidden max-md:translate-y-0 max-md:fixed max-md:left-8 max-md:-translate-x-8 max-md:px-8 max-md:max-w-full max-md:z-30"
 				ref={searchBoxRef}
 			>
 				<div className="relative w-full">
@@ -48,7 +49,7 @@ const Search = () => {
 						type="search"
 						id="search"
 						placeholder="Search for products, brands and more"
-						className="block w-full bg-gray-50 text-sm ps-10 pe-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white focus-visible:shadow"
+						className="block w-full bg-gray-50 text-sm ps-10 max-md:pe-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white focus-visible:shadow"
 						value={searchTerm}
 						onChange={handleInputChange}
 					/>

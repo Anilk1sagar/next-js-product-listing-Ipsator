@@ -45,7 +45,7 @@ const Products = () => {
 
 	return (
 		<div className="flex-1 flex flex-col pb-5">
-			<section className="bg-[#F9EBE7] py-10">
+			<section className="bg-[var(--primary-lightest)] py-10">
 				<div className="container text-center">
 					<h1 className="text-4xl font-semibold">Products</h1>
 					<p className="text-gray-800">{products.data.length} items</p>

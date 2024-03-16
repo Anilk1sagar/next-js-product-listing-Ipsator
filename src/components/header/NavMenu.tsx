@@ -48,7 +48,7 @@ const NavMenu = (props: Props) => {
 								href={navLink.href}
 								key={navLink.label}
 								className={cn(
-									'px-3 py-2 hover:bg-[#F9EBE7] rounded transition-colors',
+									'px-3 py-2 hover:bg-[var(--primary-lightest)] rounded transition-colors',
 									currentRoute === navLink.href ? 'bg-primary text-primary-foreground hover:bg-primary' : ''
 								)}
 								onClick={() => setIsSheetOpen(false)}

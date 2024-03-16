@@ -1,10 +1,7 @@
 import { createAppAsyncThunk } from '@/store/hooks';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Product } from '@/types/product';
-import {
-	fetchProductByIdAPI,
-	// fetchProductsAPI
-} from '@/services/product.service';
+// import { fetchProductByIdAPI, fetchProductsAPI } from '@/services/product.service';
 
 /** Internal Actions */
 export type ProductsState = {
@@ -348,9 +345,13 @@ export const fetchProducts = createAppAsyncThunk(
 
 export const fetchProductById = createAppAsyncThunk(
 	'products/fetchProductById',
-	async (params: { productId: string }, { getState: _getState, rejectWithValue }) => {
+	async (params: { productId: number }, { getState: _getState, rejectWithValue }) => {
 		try {
-			const product = await fetchProductByIdAPI(params.productId);
+			// const product = await fetchProductByIdAPI(params.productId);
+
+			const product = DummyProducts.find((item) => item.id === params.productId) || null;
+			await new Promise((resolve) => setTimeout(() => resolve(null), 500));
+
 			return product;
 		} catch (error: any) {
 			return rejectWithValue(error.response?.data ?? 'Something went wrong');
