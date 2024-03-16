@@ -17,11 +17,11 @@ const ProductImages = (props: Props) => {
 
 	return (
 		<div className="flex max-md:flex-col gap-5">
-			<div className="shrink-0 w-[60px] flex flex-col gap-2 max-md:flex-row max-md:max-w-[300px] max-sm:max-w-[220px] max-md:w-full">
+			<div className="shrink-0 w-[60px] flex flex-col gap-2 max-md:flex-row max-md:w-full">
 				{images.map((image, index) => (
 					<div
 						className={cn(
-							'rounded-sm border-2 p-[4px] bg-white cursor-pointer',
+							'flex items-center justify-center rounded-sm border-2 p-[4px] bg-white cursor-pointer max-md:max-w-[60px] max-sm:max-w-[50px] max-md:max-h-[70px]',
 							selectedImgIndx === index ? 'border-primary cursor-default' : 'border'
 						)}
 						key={index}
@@ -30,7 +30,7 @@ const ProductImages = (props: Props) => {
 						<Image
 							src={image}
 							alt={product.title}
-							className="w-auto max-w-full h-auto max-h-full max-md:w-full"
+							className="w-auto max-w-full h-auto max-h-full"
 							width={49}
 							height={70}
 							loader={() => image}
@@ -39,7 +39,7 @@ const ProductImages = (props: Props) => {
 				))}
 			</div>
 
-			<div className="bg-white w-full h-[500px] max-md:h-auto flex items-center justify-center p-5 max-md:-order-1">
+			<div className="bg-white w-full h-[500px] max-md:h-full max-md:max-h-[300px] max-md:basis-[300px] flex items-center justify-center p-5 max-md:-order-1">
 				<Image
 					src={images[selectedImgIndx]}
 					alt={product.title}
