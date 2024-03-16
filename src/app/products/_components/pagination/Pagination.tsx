@@ -26,7 +26,7 @@ const Pagination = (props: Props) => {
 	};
 
 	return (
-		<div className="mt-8 flex justify-center gap-3 max-sm:gap-2">
+		<div className="mt-8 flex max-sm:justify-center gap-3 max-sm:gap-2">
 			<PaginationButton disabled={currentPage <= 1} onClick={() => selectPageHandler(currentPage - 1)}>
 				<ChevronLeft className="w-5" /> Previous
 			</PaginationButton>
