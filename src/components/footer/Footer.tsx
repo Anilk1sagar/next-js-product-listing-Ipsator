@@ -52,11 +52,11 @@ const Footer = () => {
 						<div className="mb-4 h-[45px]">
 							<Link href="/">
 								<Image
-									src="/assets/images/brand-logo.svg"
+									src="/assets/images/brand-logo.png"
 									alt="brand-logo"
 									className="w-auto h-full"
-									width={85}
-									height={30}
+									width={76}
+									height={45}
 								/>
 							</Link>
 						</div>

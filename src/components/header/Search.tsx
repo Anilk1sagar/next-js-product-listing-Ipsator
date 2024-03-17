@@ -49,7 +49,7 @@ const Search = () => {
 						type="search"
 						id="search"
 						placeholder="Search for products, brands and more"
-						className="block w-full bg-gray-50 text-sm ps-10 max-md:pe-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white focus-visible:shadow"
+						className="block w-full bg-gray-50 placeholder:text-gray-400 text-sm ps-10 max-md:pe-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-white"
 						value={searchTerm}
 						onChange={handleInputChange}
 					/>

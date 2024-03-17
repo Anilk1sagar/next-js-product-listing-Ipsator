@@ -26,7 +26,7 @@ const CartItemCard = (props: Props) => {
 			</Button>
 
 			<div className="pr-5 flex gap-4 max-sm:flex-col">
-				<div className="basis-[150px] w-full max-h-[140px] max-lg:basis-[130px] max-md:basis-[150px] max-sm:w-full flex justify-center items-center bg-gray-50">
+				<div className="shrink-0 basis-[150px] max-h-[140px] max-lg:basis-[130px] max-md:basis-[150px] max-sm:w-full flex justify-center items-center bg-gray-50">
 					<Image
 						src={product.image}
 						alt={product.title}

@@ -48,10 +48,10 @@ const Header = () => {
 				<div className="h-[30px] shrink-0">
 					<Link href="/">
 						<Image
-							src="/assets/images/brand-logo.svg"
+							src="/assets/images/brand-logo.png"
 							alt="brand-logo"
 							className="w-auto h-full"
-							width={85}
+							width={46}
 							height={30}
 						/>
 					</Link>
